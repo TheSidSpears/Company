@@ -1,13 +1,12 @@
 <?php
+/**
+ * Класс взаимодействия сущности "Сотрудник" с базой данных
+ */
+class EmployesEntity extends Entity
+{
 
-class EmployesTDGW{
-    protected $db; //Объект PDO
-
-    public function __construct(\PDO $connection){
-        $this->db=$connection;
-    }
-
-    public function add(Employee $employee){
+    public function add(Model $employee)
+    {
 
         $SqlString="INSERT INTO `employes`
                     (`name`,`second_name`,`gender`,`department`)
@@ -24,7 +23,8 @@ class EmployesTDGW{
         return $stmt->execute();
     }
 
-    public function delete(int $id){
+    public function delete(int $id)
+    {
         $SqlString="DELETE FROM `employes`
         WHERE `id`=:id";
 
@@ -35,7 +35,14 @@ class EmployesTDGW{
         return $stmt->execute();  
     }
 
-    public function setDepartment($employeeId,$departmentId){
+    /**
+     * Привязывает сотрудника к отделу
+     * @param int $employeeId   id сотрудника
+     * @param int $departmentId id отдела
+     * @return bool статус процесса назначения
+     */
+    public function setDepartment(int $employeeId,int $departmentId)
+    {
         $SqlString="UPDATE `employes`
         SET `department`=:departmentId
         WHERE `id`=:employeeId";

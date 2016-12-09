@@ -1,13 +1,12 @@
 <?php
+/**
+ * Класс взаимодействия сущности "Отдел" с базой данных
+ */
+class DepartmentsEntity extends Entity
+{
 
-class DepartmentsTDGW{
-    protected $db; //Объект PDO
-
-    function __construct(\PDO $connection){
-        $this->db=$connection;
-    }
-
-    public function add(Department $department){
+    public function add(Model $department)
+    {
 
         $SqlString="INSERT INTO `departments`
                     (`name`,`room`)
@@ -22,7 +21,8 @@ class DepartmentsTDGW{
         return $stmt->execute();
     }
 
-    public function delete(int $id){
+    public function delete(int $id)
+    {
         $SqlString="DELETE FROM `departments`
         WHERE `id`=:id";
 
@@ -31,8 +31,12 @@ class DepartmentsTDGW{
         return $stmt->execute();
     }
 
-    //Ф-ия не по ТЗ
-    public function getDepartments(){
+    /**
+     * Возвращает список всех отделов
+     * @return array of Department массив с объектами отделов
+     */
+    public function getDepartments()
+    {
         $SqlString="SELECT * FROM `departments`";
         $stmt = $this->db->prepare($SqlString);
         $stmt->execute();
@@ -49,12 +53,13 @@ class DepartmentsTDGW{
         return $departments;
     }
 
-    /*
-    тут вроде неувязочка
-    TDGW к таблице departments относится, а ф-ия обращается к Employess
-    Это неверно из определнения TableDataGateway
+    /**
+     * Возвращает кол-во сотрудников отдела
+     * @param  int    $id id отдела
+     * @return int    кол-во сотрудников в отделе
      */
-    public function getEmployeeCount(int $id){
+    public function getEmployeeCount(int $id)
+    {
         $SqlString="SELECT COUNT(*) FROM `employes`
         WHERE `department`=:id";
 
@@ -66,7 +71,13 @@ class DepartmentsTDGW{
         return $stmt->fetchColumn();
     }
 
-    public function getEmployeeList(int $id){
+    /**
+     * Возвращает список сотрудников в отделе
+     * @param  int    $id           id отдела
+     * @return array of Employee    массив с объектами сотрудников
+     */
+    public function getEmployeeList(int $id)
+    {
         $SqlString="SELECT * FROM `employes`
         WHERE `department`=:id";
 

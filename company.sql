@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Дек 08 2016 г., 15:07
+-- Время создания: Дек 09 2016 г., 09:41
 -- Версия сервера: 10.1.13-MariaDB
 -- Версия PHP: 7.0.8
 
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `departments` (
   `id` int(11) NOT NULL,
-  `name` varchar(300) NOT NULL,
-  `room` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `name` varchar(300) CHARACTER SET latin1 NOT NULL,
+  `room` varchar(5) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -40,11 +40,11 @@ CREATE TABLE `departments` (
 
 CREATE TABLE `employes` (
   `id` int(11) NOT NULL,
-  `name` varchar(300) NOT NULL,
-  `second_name` varchar(300) NOT NULL,
-  `gender` enum('m','f') NOT NULL,
-  `department` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `name` varchar(300) CHARACTER SET latin1 NOT NULL,
+  `second_name` varchar(300) CHARACTER SET latin1 NOT NULL,
+  `gender` enum('m','f') CHARACTER SET latin1 NOT NULL,
+  `department` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Индексы сохранённых таблиц
@@ -71,21 +71,21 @@ ALTER TABLE `employes`
 -- AUTO_INCREMENT для таблицы `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT для таблицы `employes`
 --
 ALTER TABLE `employes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Ограничения внешнего ключа таблицы `departments`
+-- Ограничения внешнего ключа таблицы `employes`
 --
-ALTER TABLE `departments`
-  ADD CONSTRAINT `departments_ibfk_1` FOREIGN KEY (`id`) REFERENCES `employes` (`department`);
+ALTER TABLE `employes`
+  ADD CONSTRAINT `employes_ibfk_1` FOREIGN KEY (`department`) REFERENCES `departments` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

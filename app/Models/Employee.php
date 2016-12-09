@@ -1,7 +1,9 @@
 <?php
-
-class Employee{
-    protected $id;
+/**
+ * Объект "Сотрудник"
+ */
+class Employee extends Model
+{
     public $name;
     public $secondName;
     public $gender;
@@ -10,21 +12,20 @@ class Employee{
     const GENDER_MALE='m';
     const GENDER_FEMALE='f';
     
-    public function __construct($name,$secondName,$gender,$department=NULL){
+    public function __construct(string $name,
+        string $secondName,
+        string $gender,
+        int $department=NULL)
+    {
         $this->name=$name;
         $this->secondName=$secondName;
         $this->gender=$gender;
+        if (in_array($gender, array(self::GENDER_MALE,self::GENDER_FEMALE))) {
+            $this->gender=$gender;
+        }
         /**
-         * департамент - необязательный параметр. На случай форс-мажорных случаев. Пример: Отдел расформирован, а куда переопределить сотрудника - еще не решили 
+         * отдел - необязательный параметр. На случай форс-мажорных случаев. Пример: Отдел расформирован, а куда переопределить сотрудника - еще не решили 
          */
-        $this->department=$department; //
-    }
-    
-    public function getId(){
-        return $this->id;
-    }
-
-    public function setId($id){
-        $this->id=$id;
+        $this->department=$department;
     }
 }
