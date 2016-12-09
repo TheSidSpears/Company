@@ -8,17 +8,20 @@ class DepartmentsEntity extends Entity
     public function add(Model $department)
     {
 
-        $SqlString="INSERT INTO `departments`
-                    (`name`,`room`)
-                    VALUES
-                    (:name,:room)";
-        
-        $stmt = $this->db->prepare($SqlString);
+        if($department instanceof Department){
+            $SqlString="INSERT INTO `departments`
+                        (`name`,`room`)
+                        VALUES
+                        (:name,:room)";
+            
+            $stmt = $this->db->prepare($SqlString);
 
-        $stmt->bindValue(':name', $department->name, \PDO::PARAM_STR);
-        $stmt->bindValue(':room', $department->room, \PDO::PARAM_STR);
-        
-        return $stmt->execute();
+            $stmt->bindValue(':name', $department->name, \PDO::PARAM_STR);
+            $stmt->bindValue(':room', $department->room, \PDO::PARAM_STR);
+            
+            return $stmt->execute();            
+        }
+
     }
 
     public function delete(int $id)
